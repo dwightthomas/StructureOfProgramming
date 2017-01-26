@@ -22,4 +22,18 @@
         (else (+ 0 (sum-up-numbers-simple (cdr L)))) ;;else it adds zero to the total.
    )
  )
+
+(define (sum-up-numbers-general L)
+  (cond ((null? L) 0)
+        ((not (number? (car L)))
+         (cond ((not (list? (car L)))
+                (+ 0 (sum-up-numbers-general (cdr L)))
+                )
+               (else (+ (sum-up-numbers-general (car L)) (sum-up-numbers-general (cdr L))))
+          )
+         )
+        (else (+ (car L) (sum-up-numbers-general (cdr L))))
+    )
+  )
+             
          
