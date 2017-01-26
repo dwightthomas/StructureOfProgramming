@@ -23,6 +23,7 @@
    )
  )
 
+;;Tested
 (define (sum-up-numbers-general L)
   (cond ((null? L) 0)
         ((not (number? (car L)))
