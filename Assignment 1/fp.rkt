@@ -66,7 +66,7 @@
    )
  )
         
-
+;;Final function
 (define (min-above-min L1 L2)
   (cond ((null? L1) #F)
         ((null? L2)
@@ -80,5 +80,13 @@
                     ((= (min-of-list L2 90000) 90000)
                      (min-of-list L1 90000)
                      )
-                    (else ;;l2 and l1 have nums
+                    (else (cond ((null? (min-L1>L2-min L1 (min-of-list L2) '())) #f)
+                                (else (min-of-list (min-L1>L2-min L1 (min-of-list L2) '()) 90000)
+                                 )
+                           )
+                     )
+               )
+         )
+    )
+  )
                
