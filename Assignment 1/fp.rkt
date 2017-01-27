@@ -1,3 +1,4 @@
+;;Question 1
 ;;This function is used to reverse all the item in the list L
 ;; including its sublists as well.
 (define (reverse-general L)
@@ -36,6 +37,20 @@
          )
         (else (+ (car L) (sum-up-numbers-general (cdr L)))) ;;if it is a number it is add to the total.
     )
+  )
+
+;;This is a helper funtion.
+(define (min-of-list L min)
+  (cond ((null? L) min)
+        ((number? (car L))
+         (cond ((< min (car L))
+                (min-of-list (cdr L) min)
+                )
+               (else (min-of-list (cdr L) (car L)))
+          )
+         )
+        (else (min-of-list (cdr L) min))
+   )
   )
              
          
