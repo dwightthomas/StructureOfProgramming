@@ -39,7 +39,8 @@
     )
   )
 
-;;This is a helper funtion.
+;;This is a helper funtion. Assumption the list has numbers great 90000
+;;Also if 90000 is returned then the list has no numbers in it.
 (define (min-of-list L min)
   (cond ((null? L) min)
         ((number? (car L))
@@ -51,6 +52,33 @@
          )
         (else (min-of-list (cdr L) min))
    )
-  )
-             
-         
+ )
+
+;;This is helper.
+(define (min-L1>L2-min L L2min L1new)
+  (cond ((null? L) L1new)
+        ((not (number? (car L))) (min-L1>L2-min (cdr L) L2min)) 
+        ((> (car L) L2min)
+         (min-L1>L2-min (cdr L) L2min (append L1new (list (car L))))
+         )
+        (else (min-L1>L2-min (cdr L) L2min L1new)
+         )
+   )
+ )
+        
+
+(define (min-above-min L1 L2)
+  (cond ((null? L1) #F)
+        ((null? L2)
+         (cond ((not (= (min-of-list L1 90000) 90000))
+                (min-of-list L1)
+                )
+               (else #F)
+          )
+         )
+        (else (cond ((= (min-of-list L1 90000) 90000) #f)
+                    ((= (min-of-list L2 90000) 90000)
+                     (min-of-list L1 90000)
+                     )
+                    (else ;;l2 and l1 have nums
+               
