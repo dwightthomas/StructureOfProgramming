@@ -23,17 +23,18 @@
    )
  )
 
-;;Tested
+;;This function adds up all the number contains in the list L whether these numbers
+;;are in a sublist or not once its in the list it is summed.
 (define (sum-up-numbers-general L)
-  (cond ((null? L) 0)
-        ((not (number? (car L)))
-         (cond ((not (list? (car L)))
-                (+ 0 (sum-up-numbers-general (cdr L)))
+  (cond ((null? L) 0) ;;this checks to see if the list is empty and returns zero if true
+        ((not (number? (car L))) ;;this tests whether the first member of the list is not a number
+         (cond ((not (list? (car L))) ;;if true then it checks to see if it is not a list.
+                (+ 0 (sum-up-numbers-general (cdr L))) ;; if that is true it adds zero to sum and calls the rest of list
                 )
-               (else (+ (sum-up-numbers-general (car L)) (sum-up-numbers-general (cdr L))))
+               (else (+ (sum-up-numbers-general (car L)) (sum-up-numbers-general (cdr L)))) ;;else it call the sum function on that sublist plus the remainder of the list
           )
          )
-        (else (+ (car L) (sum-up-numbers-general (cdr L))))
+        (else (+ (car L) (sum-up-numbers-general (cdr L)))) ;;if it is a number it is add to the total.
     )
   )
              
