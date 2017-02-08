@@ -28,8 +28,8 @@ sum-up-numbers-general(L, N) :-      %This block handles a nested list.
    [X|Y] = L,
    sum-up-numbers-general(Y, Sum),
    is_list(X),                      %At this step is where it checks that it is a list.
-   sum-up-numbers-general(X, Sum2),
-   N is Sum + Sum2.
+   sum-up-numbers-general(X, Sum2), %If true it calls the function recursively with X.
+   N is Sum + Sum2.                 %And sums the the nested list sum with the tail.
 sum-up-numbers-general(L, N) :-      %This block deals with a none number charater.
    [X|Y] = L,
    sum-up-numbers-general(Y, Sum),
@@ -37,6 +37,21 @@ sum-up-numbers-general(L, N) :-      %This block deals with a none number charat
    N is 0 + Sum.                    %And if true zero is added.
 
 
+
+%Number 3
+%Helper Function
+min-of-list([], Min).
+min-of-list(L1, Min) :-
+   [X|Y] = L1,
+   min-of-list(Y, Min),
+   number(X),
+   Min >= X,
+   Min is X + 0.
+
+min-above-min([], L2, N) :- false.
+min-above-min(L1, [], N) :- false.
+   %helper to find min
+min-above-min(L1, L2, N) :- false.
 
 
 

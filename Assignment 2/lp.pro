@@ -38,6 +38,28 @@ sum-up-numbers-general(L, N) :-      %This block deals with a none number charat
 
 
 
+%Number 3
+%Helper Function
+min-of-list([], Min).
+min-of-list(L1, Min) :-
+   [X|Y] = L1,
+   min-of-list(Y, Min),
+   number(X),
+   Min >= X,
+   Min is X + 0.
+min-of-list(L1, Min) :-
+   [X|Y] = L1,
+   min-of-list(Y, Min),
+   number(X),
+   Min < X,
+   Min is Min.
+
+
+min-above-min([], L2, N) :- false.
+min-above-min(L1, [], N) :- false.
+   %helper to find min
+min-above-min(L1, L2, N) :- false.
+
 
 
 
