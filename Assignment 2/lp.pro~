@@ -108,24 +108,25 @@ min-above-min(L1, L2, N) :-false.
 
 %Number 4
 %Base cases.
-common-unique-elements([], [], []) :- true.
+%Assumption common elements in N must be in the same order as they appear in L1.
+common-unique-elements([], [], []) :- true.  %These are the main base cases.
 common-unique-elements([], L2, []) :- true.
 common-unique-elements(L1, [], []) :- true.
-
-common-unique-elements(L1,L2,N) :-
+common-unique-elements([], L2, N) :-true.    %This is used for stepping out of the nested list and based my assumption N has to follow the order of the elements in L1 so if L1 is empty from the jump then N should be as well.
+common-unique-elements(L1,L2,N) :-           %This takes in the paremters
+    [X|Y] = L1,				     %This gets the head and tail of L1.
+    [A|B] = N,				     %This gets head and tail of N.
+    is_list(X),				     %If head of L1, X is list.
+    common-unique-elements(X,L2,N).	     %Then it calls the function with that neseted list.
+common-unique-elements(L1,L2,N) :-	    %This is called if the head X is not a list.
     [X|Y] = L1,
     [A|B] = N,
-    is_list(X),
-    common-unique-elements(X,L2,N).
-common-unique-elements(L1,L2,N) :-
-    [X|Y] = L1,
-    [A|B] = N,
-    A = X,
-    member(X, L2),
+    A = X,                                   %This checks to ensure head of both L1 and N are the same.
+    member(X, L2),			     %This checks that this same element is in L2.
     !,
-    common-unique-elements(Y,L2,B).
-common-unique-elements([_|Y],L2,N) :-
-    common-unique-elements(Y,L2,N).
+    common-unique-elements(Y,L2,B).	     %This handles the rest of the list.
+%common-unique-elements([_|Y],L2,N) :-
+    %common-unique-elements(Y,L2,N).
 
 
 
