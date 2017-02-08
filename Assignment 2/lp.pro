@@ -24,6 +24,12 @@ sum-up-numbers-general(L, N) :-      %This takes in parameters.
    sum-up-numbers-general(Y, Sum),   %This sum the tail of the list to sum.
    number(X),                       %This checks to ensure X is a number to.
    N is X + Sum.                    %If true it adds X to the rest of the sum for tail.
+sum-up-numbers-general(L, N) :-      %This block handles a nested list.
+   [X|Y] = L,
+   sum-up-numbers-general(Y, Sum),
+   is_list(X),                      %At this step is where it checks that it is a list.
+   sum-up-numbers-general(X, Sum2), %If true it calls the function recursively with X.
+   N is Sum + Sum2.                 %And sums the the nested list sum with the tail.
 sum-up-numbers-general(L, N) :-      %This block deals with a none number charater.
    [X|Y] = L,
    sum-up-numbers-general(Y, Sum),
