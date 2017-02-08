@@ -53,13 +53,57 @@ min-of-list(L1, Min) :-
    number(X),
    Min < X,
    Min is Min.
+min-of-list(L1, Min) :-
+   [X|Y] = L1,
+   min-of-list(Y, Min),
+   Min is Min.
 
+%Helper Function 2.
+l1-min-greater-l2-min(L1, Min) :-
+[X|Y] = L1,
+number(X),
+false.
+test(L1, P)  :-
+P is append(L1, P, P).
 
+%Base Cases.
+min-above-min([], [], N) :- false.
 min-above-min([], L2, N) :- false.
+
+%Empty List2.
 min-above-min(L1, [], N) :-
    [X|Y] = L1,
-   min-of-list(L1, X).
-min-above-min(L1, L2, N) :- false.
+   not(number(X)),
+   min-above-min(Y, [], N).
+min-above-min(L1, [], N) :-
+   [X|Y] = L1,
+   number(X),
+   min-of-list(L1, X),
+   N is X + 0.
+
+%List 1 with no numbers.
+min-above-min(L1, L2, N) :-
+   [X|Y] = L1,
+   not(number(X)),
+   min-above-min(Y, L2, N).
+min-above-min(L1, L2, N) :-
+   [X|Y] = L1,
+   number(X).
+
+%Both list have elements.
+min-above-min(L1, L2, N) :-
+   [X|Y] = L2,
+   not(number(X)),
+    min-above-min(L1, Y, N).
+min-above-min(L1, L2, N) :-
+   [X|Y] = L2,
+   number(X),
+   min-of-list(L2, X),
+   %pass x into other helper.
+   false.
+min-above-min(L1, L2, N) :-false.
+
+
 
 
 
