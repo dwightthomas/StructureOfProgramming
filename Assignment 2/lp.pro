@@ -56,8 +56,9 @@ min-of-list(L1, Min) :-
 
 
 min-above-min([], L2, N) :- false.
-min-above-min(L1, [], N) :- false.
-   %helper to find min
+min-above-min(L1, [], N) :-
+   [X|Y] = L1,
+   min-of-list(L1, X).
 min-above-min(L1, L2, N) :- false.
 
 
