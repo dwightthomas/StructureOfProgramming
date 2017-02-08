@@ -12,7 +12,7 @@ sum-up-numbers-simple(L, N) :-
 sum-up-numbers-simple(L, N) :-
    [X|Y] = L,
    sum-up-numbers-simple(Y, Sum),
-   /+(number(X)),
+   not(number(X)),
    N is 0 + Sum.
 
 
