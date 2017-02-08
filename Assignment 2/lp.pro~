@@ -1,0 +1,4 @@
+sum-up-numbers-simple(L, N).
+sum-up-numbers-simple([X|Y], total) :-
+    sum-up-numbers-simple(Y, sum),
+    total = X + sum.
