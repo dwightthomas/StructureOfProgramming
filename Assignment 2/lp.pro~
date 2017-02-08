@@ -125,8 +125,8 @@ common-unique-elements(L1,L2,N) :-	    %This is called if the head X is not a li
     member(X, L2),			     %This checks that this same element is in L2.
     !,
     common-unique-elements(Y,L2,B).	     %This handles the rest of the list.
-%common-unique-elements([_|Y],L2,N) :-
-    %common-unique-elements(Y,L2,N).
+common-unique-elements([_|Y],L2,N) :-	     %This handles continuation of the function.
+    common-unique-elements(Y,L2,N).
 
 
 
