@@ -108,10 +108,11 @@ min-above-min(L1, L2, N) :-false.
 
 %Number 4
 %Base cases.
+%Assumption common elements in N must be in the same order as they appear in L1.
 common-unique-elements([], [], []) :- true.
 common-unique-elements([], L2, []) :- true.
 common-unique-elements(L1, [], []) :- true.
-
+common-unique-elements([], L2, N) :-true.    %This is used for stepping out of the nested list and based my assumption N has to follow the order of the elements in L1 so if L1 is empty from
 common-unique-elements(L1,L2,N) :-
     [X|Y] = L1,
     [A|B] = N,

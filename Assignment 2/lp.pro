@@ -100,8 +100,36 @@ min-above-min(L1, L2, N) :-
    number(X),
    min-of-list(L2, X),
    %pass x into other helper.
+   %x<min of l1 den da min is rite else
+   %x<min of tail
    false.
 min-above-min(L1, L2, N) :-false.
+
+
+%Number 4
+%Base cases.
+%Assumption common elements in N must be in the same order as they appear in L1.
+common-unique-elements([], [], []) :- true.
+common-unique-elements([], L2, []) :- true.
+common-unique-elements(L1, [], []) :- true.
+common-unique-elements([], L2, N) :-true.
+common-unique-elements(L1,L2,N) :-
+    [X|Y] = L1,
+    [A|B] = N,
+    is_list(X),
+    common-unique-elements(X,L2,N).
+common-unique-elements(L1,L2,N) :-
+    [X|Y] = L1,
+    [A|B] = N,
+    A = X,
+    member(X, L2),
+    !,
+    common-unique-elements(Y,L2,B).
+common-unique-elements([_|Y],L2,N) :-
+    common-unique-elements(Y,L2,N).
+
+
+
 
 
 
