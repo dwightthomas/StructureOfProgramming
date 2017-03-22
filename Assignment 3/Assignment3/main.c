@@ -37,13 +37,15 @@ int lex();
 main()
 {
     /* Open the input data file and process its contents */
-    if ((in_fp = fopen("front.in", "r")) == NULL)
-        printf("ERROR - cannot open front.in \n");
+    if ((in_fp = fopen("C:\\Users\\DwightThomas\\Desktop\\My Stuff\\SKL\\This Semester\\Structures of Prog\\Assignments\\StructureOfProgramming\\Assignment 3\\Assignment3\\text.txt", "r")) == NULL)
+        printf("ERROR - cannot open text.txt \n");
     else
     {
         getChar();
         do {
                 lex();
+                if(nextChar == '\n')
+                    printf("\n\n");
         } while (nextToken != EOF);
     }
 }
