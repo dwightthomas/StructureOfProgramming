@@ -1,6 +1,11 @@
 /*Written byy Dwight Thomas*/
 /*Note I added a token and lexeme to the program called New Line with token 30 to help handle new lines
 and thus deal with mupltiple lines of instructions*/
+/*The gramma is
+<expr> → <term> {(+ | -) <term>}
+<term> → <factor> {(* | /) <factor>}
+<factor> → id | int_constant | ( <expr> )
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
