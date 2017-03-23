@@ -19,11 +19,19 @@ int lexLen;
 int token;
 int nextToken;
 FILE *in_fp, *fopen();
+char everyChar [100];
+int indexof;
+
 /* Function declarations */
 void addChar();
 void getChar();
 void getNonBlank();
 int lex();
+void expr();
+void term();
+void factor();
+void error();
+
 
 /* Character classes */
 #define LETTER 0
@@ -46,6 +54,7 @@ int lex();
 /* main driver */
 main()
 {
+    indexof = 0;
     /* Open the input data file and process its contents */
     if ((in_fp = fopen("C:\\Users\\DwightThomas\\Desktop\\My Stuff\\SKL\\This Semester\\Structures of Prog\\Assignments\\StructureOfProgramming\\Assignment 3\\Assignment3\\text.txt", "r")) == NULL)
         printf("ERROR - cannot open text.txt \n");
@@ -54,6 +63,7 @@ main()
         getChar();
         /*FIGURE OUT HOW TO HANDLE THE NEXT LINE CHARACTER FOR FREE FLOW TO NEW LINE OF INSTRUCTIONS*/
         do {
+               // indexof = 0;
                 lex();
                 expr();
                 /*This block is for when we get to a new line it gives a space for better presentation*/
@@ -127,6 +137,14 @@ void getChar()
 {
     if ((nextChar = getc(in_fp)) != EOF)
     {
+        /*This if else block is put to help reset the character array that holds the input of present line*/
+        if(nextChar == '\n')
+            indexof = 0;
+        else
+        {
+            everyChar[indexof] = nextChar;
+            indexof = indexof + 1;
+        }
         if (isalpha(nextChar))
             charClass = LETTER;
         else if (isdigit(nextChar))
@@ -308,5 +326,11 @@ This function is here to handle any syntax errors that may occur with instructio
 */
 void error()
 {
-    printf("\nA syntax error as occured here with %s \n\n", lexeme);
+    printf("\nA syntax error as occured here at character %s  in the following line:\n", lexeme);
+    int i;
+    for(i = 0; i<indexof; i++)
+    {
+        printf("%c", everyChar[i]);
+    }
+    printf("\n\n");
 }
