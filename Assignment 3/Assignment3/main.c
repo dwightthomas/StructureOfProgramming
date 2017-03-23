@@ -1,3 +1,7 @@
+/*Written byy Dwight Thomas*/
+/*Note I added a token and lexeme to the program called New Line with token 30 to help handle new lines
+and thus deal with mupltiple lines of instructions*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -43,12 +47,11 @@ main()
     else
     {
         getChar();
-        /*lex();
-        expr();*/
         /*FIGURE OUT HOW TO HANDLE THE NEXT LINE CHARACTER FOR FREE FLOW TO NEW LINE OF INSTRUCTIONS*/
         do {
                 lex();
                 expr();
+                /*This block is for when we get to a new line it gives a space for better presentation*/
                 if(nextToken == NEW_LINE && nextChar != EOF)
                     printf("\nNext Line of input\n\n");
         } while (nextToken != EOF);
@@ -86,6 +89,7 @@ int lookup(char ch)
             addChar();
             nextToken = DIV_OP;
             break;
+        /*This handles the next line character so multple lines of instructions can be handled*/
         case '\n':
             nextToken = NEW_LINE;
             break;
@@ -135,6 +139,7 @@ void getChar()
  returns a non-whitespace character */
 void getNonBlank()
 {
+    /*This if is put so that the new line character is no longer just dissmissed as black space*/
     if(nextChar != '\n')
     {
         while (isspace(nextChar))
@@ -178,8 +183,10 @@ int lex()
         case UNKNOWN:
             lookup(nextChar);
             getChar();
+            /*This if statement handles the new line to give a lexeme that will be shown stating that we're going to a next line*/
             if(nextToken == NEW_LINE)
             {
+                /*This if is here so that when we get to the end of file we dont say new line and then EOF but just EOF*/
                 if(nextChar != EOF)
                 {
                     lexeme[0] = 'N';
@@ -290,6 +297,10 @@ void factor()
     printf("Exit <factor>\n");;
 } /* End of function factor */
 
+
+/*error
+This function is here to handle any syntax errors that may occur with instructions that can't be handled with this grammar
+*/
 void error()
 {
     printf("This is a sytax error");
