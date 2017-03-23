@@ -30,6 +30,7 @@ int lex();
 #define DIV_OP 24
 #define LEFT_PAREN 25
 #define RIGHT_PAREN 26
+#define NEW_LINE 30
 
 
 /******************************************************/
@@ -48,8 +49,8 @@ main()
         do {
                 lex();
                 expr();
-                if(nextChar == '\n')
-                    printf("\n\n");
+                if(nextToken == NEW_LINE && nextChar != EOF)
+                    printf("\nNext Line of input\n\n");
         } while (nextToken != EOF);
     }
 }
@@ -84,6 +85,9 @@ int lookup(char ch)
         case '/':
             addChar();
             nextToken = DIV_OP;
+            break;
+        case '\n':
+            nextToken = NEW_LINE;
             break;
         default:
             addChar();
@@ -131,8 +135,11 @@ void getChar()
  returns a non-whitespace character */
 void getNonBlank()
 {
-    while (isspace(nextChar))
-        getChar();
+    if(nextChar != '\n')
+    {
+        while (isspace(nextChar))
+            getChar();
+    }
 }
 
 
@@ -171,6 +178,30 @@ int lex()
         case UNKNOWN:
             lookup(nextChar);
             getChar();
+            if(nextToken == NEW_LINE)
+            {
+                if(nextChar != EOF)
+                {
+                    lexeme[0] = 'N';
+                    lexeme[1] = 'E';
+                    lexeme[2] = 'W';
+                    lexeme[3] = ' ';
+                    lexeme[4] = 'L';
+                    lexeme[5] = 'I';
+                    lexeme[6] = 'N';
+                    lexeme[7] = 'E';
+                    lexeme[8] = 0;
+                }
+                else
+                {
+                    nextToken = EOF;
+                    lexeme[0] = 'E';
+                    lexeme[1] = 'O';
+                    lexeme[2] = 'F';
+                    lexeme[3] = 0;
+                }
+            }
+
             break;
         /* EOF */
         case EOF:
@@ -261,5 +292,5 @@ void factor()
 
 void error()
 {
-    printf("This is and sytax error");
+    printf("This is a sytax error");
 }
