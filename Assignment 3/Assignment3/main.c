@@ -308,5 +308,5 @@ This function is here to handle any syntax errors that may occur with instructio
 */
 void error()
 {
-    printf("This is a sytax error");
+    printf("\nA syntax error as occured here with %s \n\n", lexeme);
 }
